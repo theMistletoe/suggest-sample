@@ -19,7 +19,6 @@
     <script>
         function startSuggest() {
             const list = [
-                "肺炎",
                 "＊＊　未コード化傷病名　＊＊",
                 "１１β－水酸化酵素欠損症",
                 "１７α－水酸化酵素欠損症",
@@ -26187,14 +26186,17 @@
                 "ヴィラレ症候群"
             ];
 
-            new Suggest.Local(
+            const sortedList = list.sort(function(a, b) {return a.length - b.length;});
+
+            new Suggest.LocalMulti(
                 "text", // 入力のエレメントID
                 "suggest", // 補完候補を表示するエリアのID
-                list, // 補完候補の検索対象となる配列
+                sortedList, // 補完候補の検索対象となる配列
                 {
-                    dispMax: 10,
+                    dispMax: 20,
                     interval: 500,
                     highlight: true,
+                    dispAllKey: true,
                 }); // オプション
         }
 
@@ -26242,7 +26244,7 @@
                 <td>入力:</td>
                 <td>
                     <!-- 入力フォーム -->
-                    <input id="text" type="text" name="pattern" value="" autocomplete="off" size="10"
+                    <input id="text" type="text" name="pattern" value="" autocomplete="off" size="50"
                         style="display: block">
                     <!-- 補完候補を表示するエリア -->
                     <div id="suggest" style="display:none;"></div>
